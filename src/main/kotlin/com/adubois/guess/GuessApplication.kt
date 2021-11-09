@@ -5,9 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.RestController
 import java.time.Duration
 import java.util.*
@@ -26,11 +24,12 @@ fun main(args: Array<String>) {
 
 
 @RestController
+@CrossOrigin
 class RestController {
 
     val cache: Cache<UUID, Int> = Caffeine.newBuilder()
             .expireAfterWrite(Duration.ofMinutes(10))
-            .maximumSize(10_000)
+            .maximumSize(100_000)
             .build()
 
     val currentTokenIndex = AtomicInteger(0)
